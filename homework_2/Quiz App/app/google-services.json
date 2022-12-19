@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "809089740826",
+    "project_id": "fir-firestore-a6eb2",
+    "storage_bucket": "fir-firestore-a6eb2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809089740826:android:20dc88ec24f5e4af09e1a3",
+        "android_client_info": {
+          "package_name": "com.example.firebasefirestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809089740826-ifdngp8796up0bbgnv7d9mvvnkisb0vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScZgbBx103WTOZEn5N6fEnnqyMhMPB4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809089740826-ifdngp8796up0bbgnv7d9mvvnkisb0vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809089740826:android:21303268636896a409e1a3",
+        "android_client_info": {
+          "package_name": "com.example.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809089740826-ifdngp8796up0bbgnv7d9mvvnkisb0vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBScZgbBx103WTOZEn5N6fEnnqyMhMPB4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809089740826-ifdngp8796up0bbgnv7d9mvvnkisb0vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
