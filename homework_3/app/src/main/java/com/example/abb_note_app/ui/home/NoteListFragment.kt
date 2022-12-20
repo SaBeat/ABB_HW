@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +44,8 @@ class NoteListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         deleteNoteListById(view)
+        deleteAllList()
+        setupSearchView()
         getAllList()
         goToAddNoteFragment()
     }
@@ -68,7 +73,7 @@ class NoteListFragment : Fragment() {
     private fun deleteNoteListById(view: View){
         lifecycleScope.launchWhenCreated {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewmodel.getAllNotes().observe(viewLifecycleOwner){ noteList ->
+                viewmodel.getAllNotes().observe(viewLifecycleOwner){
                     deleteNoteListItem(view)
                 }
             }
@@ -76,7 +81,7 @@ class NoteListFragment : Fragment() {
     }
 
     private fun deleteNoteListItem(view:View){
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -102,6 +107,43 @@ class NoteListFragment : Fragment() {
                         }).show()
             }
         }).attachToRecyclerView(noteListBinding?.rvNoteList)
+    }
+
+    private fun setupSearchView(){
+        noteListBinding?.searcView?.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                query?.let {keyword ->
+                    viewmodel.getNoteByKeywor(keyword).observe(viewLifecycleOwner){list ->
+                        setupRecyclerView()
+                        noteListAdapter.differ.submitList(list)
+                    }
+                }
+
+                return true
+            }
+
+        })
+    }
+
+    private fun deleteAllList(){
+
+        noteListBinding?.imageDeleteAll?.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Alert")
+            builder.setMessage("Do you want to delete all list?")
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                viewmodel.deleteAllList()
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                dialog.dismiss()
+            }
+            builder.show()
+        }
     }
 
     private fun goToAddNoteFragment(){

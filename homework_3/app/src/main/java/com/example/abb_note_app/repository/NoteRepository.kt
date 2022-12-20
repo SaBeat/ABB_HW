@@ -1,4 +1,4 @@
-package com.example.abb_note_app.domain.repository
+package com.example.abb_note_app.repository
 
 import androidx.lifecycle.LiveData
 import com.example.abb_note_app.data.db.NoteDao
@@ -13,5 +13,7 @@ class NoteRepository @Inject constructor(
     suspend fun deleteNote(noteEntity: NoteEntity) = noteDao.deleteNote(noteEntity)
     fun getAllNotes():LiveData<List<NoteEntity>> = noteDao.getAllNotes()
     fun deleteNoteById(noteId:Int) = noteDao.deleteNoteById(noteId)
+    fun getNoteByKeyword(query: String) = noteDao.getNoteByKeyword(query)
+    fun deleteAllList() = noteDao.deleteAllList()
 
 }

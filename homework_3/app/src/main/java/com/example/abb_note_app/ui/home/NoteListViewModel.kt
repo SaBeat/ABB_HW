@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.abb_note_app.data.model.NoteEntity
-import com.example.abb_note_app.domain.repository.NoteRepository
+import com.example.abb_note_app.repository.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,6 +15,7 @@ class NoteListViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getAllNotes():LiveData<List<NoteEntity>> = repository.getAllNotes()
+    fun getNoteByKeywor(query:String):LiveData<List<NoteEntity>> = repository.getNoteByKeyword(query)
 
 
     fun insertNote(noteEntity: NoteEntity) {
@@ -29,9 +30,9 @@ class NoteListViewModel @Inject constructor(
         }
     }
 
-    fun deleteNoteById(noteId:Int){
+    fun deleteAllList(){
         viewModelScope.launch {
-            repository.deleteNoteById(noteId)
+            repository.deleteAllList()
         }
     }
 }

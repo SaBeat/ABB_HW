@@ -6,22 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.NoteListFragment">
 
-   <androidx.recyclerview.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/rv_note_list"/>
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-   <com.google.android.material.floatingactionbutton.FloatingActionButton
-       android:id="@+id/fab"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_gravity="end|bottom"
-       android:layout_margin="16dp"
-       android:layout_marginEnd="32dp"
-       android:layout_marginBottom="32dp"
-       android:contentDescription="Submit"
-       android:src="@drawable/ic_add"
-       app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searcView"
+            android:layout_width="0dp"
+            android:layout_weight="0.85"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:padding="6dp" />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:layout_weight="0.15"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_delete_all"
+            android:id="@+id/image_delete_all"/>
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_note_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_search" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/submit"
+        android:src="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.add_note.AddNoteFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#C1BEBE"
         android:layout_centerInParent="true">
 
         <LinearLayout
@@ -22,17 +24,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:background="@drawable/bg_editext"
+                android:padding="10dp"
                 android:id="@+id/et_title"
-                android:hint="Title"/>
+                android:hint="@string/title"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_title"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
+                android:background="@drawable/bg_editext"
+                android:padding="10dp"
+                android:lines="5"
                 android:id="@+id/et_body"
-                android:hint="Body"/>
+                android:hint="@string/body"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -40,9 +46,12 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:id="@+id/btn_add"
-                android:text="Add Note"
-                android:textAllCaps="false"
-                android:layout_below="@id/et_body"/>
+                android:text="@string/add_note"
+                android:textColor="@color/white"
+                android:layout_margin="20dp"
+                android:textSize="20sp"
+                android:background="@drawable/bg_button"
+                android:textAllCaps="false"/>
 
         </LinearLayout>
 

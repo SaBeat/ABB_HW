@@ -17,9 +17,15 @@ interface NoteDao {
     @Delete
     suspend fun deleteNote(noteEntity: NoteEntity)
 
+    @Query("DELETE FROM TB_NOTE")
+    fun deleteAllList()
+
     @Query("DELETE FROM TB_NOTE WHERE id = :noteId")
     fun deleteNoteById(noteId:Int)
 
     @Query("SELECT * FROM TB_NOTE")
     fun getAllNotes():LiveData<List<NoteEntity>>
+
+    @Query("SELECT * FROM TB_NOTE WHERE title or body LIKE '%' || :query || '%'")
+    fun getNoteByKeyword(query:String):LiveData<List<NoteEntity>>
 }
