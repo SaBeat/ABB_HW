@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -16,10 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.abb_note_app.R
 import com.example.abb_note_app.data.model.NoteEntity
 import com.example.abb_note_app.databinding.FragmentNoteListBinding
 import com.example.abb_note_app.ui.home.adapter.NoteListAdapter
+import com.example.abb_note_app.ui.viewmodel.NoteListViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,6 +47,7 @@ class NoteListFragment : Fragment() {
         setupSearchView()
         getAllList()
         goToAddNoteFragment()
+
     }
 
     private fun setupRecyclerView(){
@@ -117,7 +117,7 @@ class NoteListFragment : Fragment() {
 
             override fun onQueryTextChange(query: String?): Boolean {
                 query?.let {keyword ->
-                    viewmodel.getNoteByKeywor(keyword).observe(viewLifecycleOwner){list ->
+                    viewmodel.getNoteByKeyword(keyword).observe(viewLifecycleOwner){list ->
                         setupRecyclerView()
                         noteListAdapter.differ.submitList(list)
                     }
@@ -148,7 +148,9 @@ class NoteListFragment : Fragment() {
 
     private fun goToAddNoteFragment(){
         noteListBinding?.fab?.setOnClickListener {
-            findNavController().navigate(R.id.action_noteListFragment_to_addNoteFragment)
+            val note = NoteEntity(0,"","")
+            val action = NoteListFragmentDirections.actionNoteListFragmentToAddNoteFragment(note)
+            findNavController().navigate(action)
         }
     }
 

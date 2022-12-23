@@ -1,4 +1,4 @@
-package com.example.abb_note_app.ui.home
+package com.example.abb_note_app.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +15,7 @@ class NoteListViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getAllNotes():LiveData<List<NoteEntity>> = repository.getAllNotes()
-    fun getNoteByKeywor(query:String):LiveData<List<NoteEntity>> = repository.getNoteByKeyword(query)
+    fun getNoteByKeyword(query:String):LiveData<List<NoteEntity>> = repository.getNoteByKeyword(query)
 
 
     fun insertNote(noteEntity: NoteEntity) {
@@ -23,6 +23,13 @@ class NoteListViewModel @Inject constructor(
             repository.insertNote(noteEntity)
         }
     }
+
+    fun updateNote(noteEntity: NoteEntity) {
+        viewModelScope.launch {
+            repository.updateNote(noteEntity)
+        }
+    }
+
 
     fun deleteNote(noteEntity: NoteEntity){
         viewModelScope.launch {

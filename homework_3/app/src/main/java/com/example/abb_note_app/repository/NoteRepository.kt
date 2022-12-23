@@ -10,9 +10,9 @@ class NoteRepository @Inject constructor(
 ) {
 
     suspend fun insertNote(noteEntity: NoteEntity) = noteDao.insertNote(noteEntity)
+    suspend fun updateNote(noteEntity: NoteEntity) = noteDao.updateNote(noteEntity)
     suspend fun deleteNote(noteEntity: NoteEntity) = noteDao.deleteNote(noteEntity)
-    fun getAllNotes():LiveData<List<NoteEntity>> = noteDao.getAllNotes()
-    fun deleteNoteById(noteId:Int) = noteDao.deleteNoteById(noteId)
+    fun getAllNotes(): LiveData<List<NoteEntity>> = noteDao.getAllNotes()
     fun getNoteByKeyword(query: String) = noteDao.getNoteByKeyword(query)
     fun deleteAllList() = noteDao.deleteAllList()
 
