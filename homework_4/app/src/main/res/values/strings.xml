@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Compose Profile Section</string>
+    <string name="drop_down_arrow">Drop Down Arrow</string>
+    <string name="firstname">Firstname</string>
+    <string name="firstname_value">Sabit</string>
+    <string name="lastname">Lastname</string>
+    <string name="lastname_value">Sadigli</string>
+    <string name="email">Email</string>
+    <string name="phone">Telephone</string>
+    <string name="mail_value">sabitsadiqli@gmail.com</string>
+    <string name="phone_value">+380630000000</string>
+    <string name="admin">Admin</string>
+    <string name="user">User</string>
 </resources>
