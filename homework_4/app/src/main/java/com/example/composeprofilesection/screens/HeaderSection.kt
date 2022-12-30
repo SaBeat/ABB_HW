@@ -8,11 +8,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.composeprofilesection.model.Profile
 import com.example.composeprofilesection.ui.theme.ComposeProfileSectionTheme
 import com.example.composeprofilesection.ui.theme.LightBlue
 
 @Composable
-fun HeaderSection() {
+fun HeaderSection(profile: Profile) {
 
     Box(
         modifier = Modifier
@@ -30,8 +31,8 @@ fun HeaderSection() {
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CircleImageAvatar()
-                    IsAdminAndCustomerNumber(isAdmin = true, customerNumber = "378347375")
+                    CircleImageAvatar(profile)
+                    IsAdminAndCustomerNumber(profile)
                 }
 
             }
@@ -40,10 +41,10 @@ fun HeaderSection() {
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    ComposeProfileSectionTheme {
-        HeaderSection()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    ComposeProfileSectionTheme {
+//        HeaderSection()
+//    }
+//}

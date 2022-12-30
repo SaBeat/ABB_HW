@@ -14,12 +14,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.composeprofilesection.R
+import com.example.composeprofilesection.model.Profile
 
 @Composable
-fun CircleImageAvatar() {
+fun CircleImageAvatar(profile: Profile) {
     Spacer(modifier = Modifier.height(10.dp))
-    val genderDetector by remember { mutableStateOf("Male") }
-    val genderImage = if(genderDetector == "Male") R.drawable.man else R.drawable.woman
+    val genderDetector by remember { mutableStateOf("Female") }
+    val genderImage = if(genderDetector == profile.gender) profile.avatarUrl else R.drawable.woman
     Image(
         painter = painterResource(genderImage),
         contentDescription = "avatar",
