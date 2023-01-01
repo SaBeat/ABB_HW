@@ -19,7 +19,7 @@ import com.example.composeprofilesection.model.Profile
 @Composable
 fun CircleImageAvatar(profile: Profile) {
     Spacer(modifier = Modifier.height(10.dp))
-    val genderDetector by remember { mutableStateOf("Female") }
+    val genderDetector by remember { mutableStateOf("Male") }
     val genderImage = if(genderDetector == profile.gender) profile.avatarUrl else R.drawable.woman
     Image(
         painter = painterResource(genderImage),

@@ -11,4 +11,6 @@
     <string name="phone_value">+380630000000</string>
     <string name="admin">Admin</string>
     <string name="user">User</string>
+    <string name="gender">Gender</string>
+    <string name="gender_value">Male</string>
 </resources>

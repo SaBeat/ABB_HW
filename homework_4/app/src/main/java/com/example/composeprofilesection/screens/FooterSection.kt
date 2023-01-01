@@ -16,5 +16,6 @@ fun FooterSection(profile: Profile){
         ExpandableCard(header = stringResource(R.string.lastname), description = profile.lastName, color = Color.Black )
         ExpandableCard(header = stringResource(R.string.email), description = profile.email, color = Color.Black )
         ExpandableCard(header = stringResource(R.string.phone), description = profile.telephone, color = Color.Black )
+        ExpandableCard(header = stringResource(R.string.gender), description = profile.gender, color = Color.Black )
     }
 }
