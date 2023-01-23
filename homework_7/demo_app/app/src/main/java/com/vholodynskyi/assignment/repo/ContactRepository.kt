@@ -28,8 +28,9 @@ class ContactRepository(
 
     fun getContactById(contactId: Int) = dao.getContactById(contactId)
     suspend fun insertContactList(dbContactList: List<DbContact>) = dao.addAll(dbContactList)
+    suspend fun insertContact(dbContact: DbContact) = dao.addContact(dbContact)
     suspend fun deleteContactById(contactId: Int) = dao.deleteById(contactId)
     suspend fun deleteAllContacts() = dao.deleteAll()
-    suspend fun getContacts() = dao.getContacts()
+    fun getContacts() = dao.getContacts()
 
 }

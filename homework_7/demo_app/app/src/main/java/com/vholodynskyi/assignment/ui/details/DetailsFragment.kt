@@ -14,6 +14,7 @@ import com.vholodynskyi.assignment.R
 import com.vholodynskyi.assignment.databinding.FragmentDetailsBinding
 import com.vholodynskyi.assignment.di.GlobalFactory
 import com.vholodynskyi.assignment.ui.contactslist.ContactsListFragmentDirections
+import com.vholodynskyi.assignment.ui.contactslist.ContactsListViewModel
 import kotlinx.coroutines.launch
 
 
@@ -21,6 +22,7 @@ open class DetailsFragment : Fragment() {
     var binding: FragmentDetailsBinding? = null
     val args: DetailsFragmentArgs by navArgs()
 
+    private val contactsListViewModel by lazy { ContactsListViewModel() }
     private val detailsViewModel by viewModels<DetailsViewModel> { GlobalFactory }
 
     override fun onCreateView(
@@ -38,25 +40,28 @@ open class DetailsFragment : Fragment() {
     }
 
     private fun getList(contactId: Int) {
-        val apiContact = GlobalFactory.apiContactSingletonList[contactId]
-        binding?.txtDetailFullName?.text =
-            "${apiContact.name?.firstName} ${apiContact.name?.lastName}"
+//        val apiContact = GlobalFactory.apiContactSingletonList[contactId]
+        val dbContact = contactsListViewModel.getContactById(contactId+1)
 
-        binding?.txtDetailEmail?.text = apiContact.email
+
+        binding?.txtDetailFullName?.text =
+            "${dbContact.firstName} ${dbContact.lastName}"
+
+        binding?.txtDetailEmail?.text = dbContact.email
 
         binding?.imageDetail?.let {
-            Glide.with(requireContext()).load(apiContact.picture?.thumbnail).centerCrop()
+            Glide.with(requireContext()).load(dbContact.photo).centerCrop()
                 .placeholder(R.drawable.ic_launcher_background).into(
                 it
             )
         }
     }
 
-    private fun deleteDetailList(){
+    private fun deleteDetailList(contactId: Int){
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Are you sure to delete contact?")
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            GlobalFactory.apiContactSingletonList.removeAt(args.id)
+            contactsListViewModel.deleteContactById(contactId)
             findNavController()
                 .navigate(R.id.action_details_to_contactList)
         }
@@ -70,7 +75,7 @@ open class DetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.delete_contact -> {
-                deleteDetailList()
+                deleteDetailList(args.id+1)
             }
             else -> super.onOptionsItemSelected(item)
         }

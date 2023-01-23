@@ -25,7 +25,7 @@ object GlobalFactory: ViewModelProvider.Factory {
             context,
             AppDatabase::class.java,
             "app-database"
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

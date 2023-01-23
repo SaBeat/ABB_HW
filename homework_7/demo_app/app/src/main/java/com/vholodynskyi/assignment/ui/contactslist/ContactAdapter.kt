@@ -10,19 +10,20 @@ import com.bumptech.glide.Glide
 import com.vholodynskyi.assignment.R
 import com.vholodynskyi.assignment.api.contacts.ApiContact
 import com.vholodynskyi.assignment.databinding.ItemContactListBinding
+import com.vholodynskyi.assignment.db.contacts.DbContact
 
 class ContactAdapter (
     private val context: Activity,
     private val onItemClicked: ItemClick
 ) : RecyclerView.Adapter<ViewHolder>() {
 
-    val diffUtil = object : DiffUtil.ItemCallback<ApiContact>() {
-        override fun areItemsTheSame(oldItem: ApiContact, newItem: ApiContact): Boolean {
-            return true
+    val diffUtil = object : DiffUtil.ItemCallback<DbContact>() {
+        override fun areItemsTheSame(oldItem: DbContact, newItem: DbContact): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ApiContact, newItem: ApiContact): Boolean {
-            return true
+        override fun areContentsTheSame(oldItem: DbContact, newItem: DbContact): Boolean {
+            return oldItem == newItem
         }
     }
 
@@ -37,15 +38,15 @@ class ContactAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         with(holder.binding) {
-            if(item.name !=null && item.email !=null) {
-                txtFullName.text = "${item.name.firstName} ${item.name.lastName}"
+            if(item.firstName !=null && item.email !=null) {
+                txtFullName.text = "${item.firstName} ${item.lastName}"
                 txtEmail.text = item.email
             }
             root.setOnClickListener {
                 onItemClicked(holder.absoluteAdapterPosition)
             }
-            if(item.picture != null) {
-                Glide.with(context).load(item.picture.thumbnail)
+            if(item.photo != null) {
+                Glide.with(context).load(item.photo)
                     .centerCrop()
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(contactImage)

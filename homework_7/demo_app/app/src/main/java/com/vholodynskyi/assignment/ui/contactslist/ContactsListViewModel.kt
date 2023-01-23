@@ -16,6 +16,13 @@ class ContactsListViewModel(
 
     private val _contactList = MutableLiveData<List<ApiContact>>()
     var contactList :LiveData<List<ApiContact>> = _contactList
+
+//    private val _contactListFromDB = MutableLiveData<List<DbContact>>()
+//    var contactListFromDB :LiveData<List<DbContact>> = _contactListFromDB
+
+    private val _contactFromDB = MutableLiveData<DbContact>()
+    var contactFromDB :LiveData<DbContact> = _contactFromDB
+
     private val repository:ContactRepository
     private val contactsService = GlobalFactory.service
 
@@ -23,6 +30,7 @@ class ContactsListViewModel(
         val dao = GlobalFactory.db.userDao()
         repository= ContactRepository(contactsService,dao)
         getAllContactList()
+        getAllContactListFromDB()
     }
 
     fun getAllContactList() = viewModelScope.launch {
@@ -31,12 +39,24 @@ class ContactsListViewModel(
         }
     }
 
+    fun getAllContactListFromDB():List<DbContact> {
+        return GlobalFactory.db.userDao().getContacts()
+    }
+
+    fun getContactById(contactId: Int):DbContact {
+       return  GlobalFactory.db.userDao().getContactById(contactId)
+    }
+
     fun insertContactList(dbContactList: List<DbContact>) = viewModelScope.launch {
         repository.insertContactList(dbContactList)
     }
 
     fun deleteAllContactList() = viewModelScope.launch {
         repository.deleteAllContacts()
+    }
+
+    fun insertContact(dbContact: DbContact) = viewModelScope.launch {
+        repository.insertContact(dbContact)
     }
 
     fun deleteContactById(contactId:Int) = viewModelScope.launch {
