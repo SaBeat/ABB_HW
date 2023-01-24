@@ -40,7 +40,7 @@
                 android:id="@+id/txt_full_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sabit Sadigli"
+                android:text="@string/sabit_sadigli"
                 android:padding="4dp"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
-                android:text="sabitsadiqli@gmail.com"
+                android:text="@string/sabit_mail"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:layout_editor_absoluteY="8dp" />
 

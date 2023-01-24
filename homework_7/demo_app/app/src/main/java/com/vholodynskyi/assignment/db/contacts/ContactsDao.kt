@@ -22,7 +22,4 @@ interface ContactsDao {
 
     @Query("DELETE FROM Contact")
     suspend fun deleteAll()
-
-    @Query("SELECT * FROM Contact where id =:contactId")
-    fun getContactById(contactId: Int): DbContact
 }

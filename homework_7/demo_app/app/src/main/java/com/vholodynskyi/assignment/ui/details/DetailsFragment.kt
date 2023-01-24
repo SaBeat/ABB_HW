@@ -22,9 +22,6 @@ open class DetailsFragment : Fragment() {
     var binding: FragmentDetailsBinding? = null
     val args: DetailsFragmentArgs by navArgs()
 
-    private val contactsListViewModel by lazy { ContactsListViewModel() }
-    private val detailsViewModel by viewModels<DetailsViewModel> { GlobalFactory }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,8 +38,6 @@ open class DetailsFragment : Fragment() {
 
     private fun getList(contactId: Int) {
         val apiContact = GlobalFactory.apiContactSingletonList[contactId]
-//        val dbContact = contactsListViewModel.getContactById(contactId+1)
-
 
         binding?.txtDetailFullName?.text =
             "${apiContact.name?.firstName} ${apiContact.name?.lastName}"
@@ -59,7 +54,7 @@ open class DetailsFragment : Fragment() {
 
     private fun deleteDetailList(contactId: Int){
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Are you sure to delete contact?")
+        builder.setTitle(getString(R.string.alert_title_delete))
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
             GlobalFactory.apiContactSingletonList.removeAt(contactId)
             findNavController()

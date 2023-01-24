@@ -1,6 +1,5 @@
 package com.vholodynskyi.assignment.ui.contactslist
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.vholodynskyi.assignment.api.contacts.ApiContact
-import com.vholodynskyi.assignment.api.contacts.toDbContact
 import com.vholodynskyi.assignment.databinding.FragmentContactsListBinding
 import com.vholodynskyi.assignment.db.contacts.DbContact
 import com.vholodynskyi.assignment.di.GlobalFactory
@@ -31,6 +29,7 @@ open class ContactsListFragment : Fragment() {
     }
     private val contactsListViewModel by lazy { ContactsListViewModel() }
     private var dbContactList = mutableListOf<DbContact>()
+    val TAG = "DEBUG"
 
     private fun onContactClicked(id: Int) {
         findNavController()
@@ -41,7 +40,7 @@ open class ContactsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.v("Sabit","onCreate start")
+        Log.v(TAG,"onCreate start")
         getAllContactListForFirstTime()
     }
 
@@ -53,7 +52,7 @@ open class ContactsListFragment : Fragment() {
         // Creates a vertical Layout Manager
         return FragmentContactsListBinding.inflate(layoutInflater, container, false)
             .apply {
-                Log.v("Sabit","onCreateView start")
+                Log.v(TAG,"onCreateView start")
                 contactsListViewModel.deleteAllContactList()
                 rvContactList.layoutManager = LinearLayoutManager(context)
                 rvContactList.adapter = contactAdapter
@@ -137,7 +136,7 @@ open class ContactsListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        Log.v("Sabit","onDestroyView start")
+        Log.v(TAG,"onDestroyView start")
         super.onDestroyView()
         binding = null
     }
