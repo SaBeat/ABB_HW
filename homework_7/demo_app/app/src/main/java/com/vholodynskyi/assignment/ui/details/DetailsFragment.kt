@@ -40,17 +40,17 @@ open class DetailsFragment : Fragment() {
     }
 
     private fun getList(contactId: Int) {
-//        val apiContact = GlobalFactory.apiContactSingletonList[contactId]
-        val dbContact = contactsListViewModel.getContactById(contactId+1)
+        val apiContact = GlobalFactory.apiContactSingletonList[contactId]
+//        val dbContact = contactsListViewModel.getContactById(contactId+1)
 
 
         binding?.txtDetailFullName?.text =
-            "${dbContact.firstName} ${dbContact.lastName}"
+            "${apiContact.name?.firstName} ${apiContact.name?.lastName}"
 
-        binding?.txtDetailEmail?.text = dbContact.email
+        binding?.txtDetailEmail?.text = apiContact.email
 
         binding?.imageDetail?.let {
-            Glide.with(requireContext()).load(dbContact.photo).centerCrop()
+            Glide.with(requireContext()).load(apiContact.picture?.thumbnail).centerCrop()
                 .placeholder(R.drawable.ic_launcher_background).into(
                 it
             )
@@ -61,9 +61,9 @@ open class DetailsFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Are you sure to delete contact?")
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            contactsListViewModel.deleteContactById(contactId)
+            GlobalFactory.apiContactSingletonList.removeAt(contactId)
             findNavController()
-                .navigate(R.id.action_details_to_contactList)
+                .navigateUp()
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
@@ -75,7 +75,7 @@ open class DetailsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.delete_contact -> {
-                deleteDetailList(args.id+1)
+                deleteDetailList(args.id)
             }
             else -> super.onOptionsItemSelected(item)
         }

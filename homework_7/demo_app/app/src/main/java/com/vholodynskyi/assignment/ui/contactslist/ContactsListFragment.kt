@@ -1,5 +1,6 @@
 package com.vholodynskyi.assignment.ui.contactslist
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,12 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.vholodynskyi.assignment.api.contacts.ApiContact
 import com.vholodynskyi.assignment.api.contacts.toDbContact
 import com.vholodynskyi.assignment.databinding.FragmentContactsListBinding
 import com.vholodynskyi.assignment.db.contacts.DbContact
 import com.vholodynskyi.assignment.di.GlobalFactory
+import java.util.*
 
 
 open class ContactsListFragment : Fragment() {
@@ -28,7 +31,6 @@ open class ContactsListFragment : Fragment() {
     }
     private val contactsListViewModel by lazy { ContactsListViewModel() }
     private var dbContactList = mutableListOf<DbContact>()
-//    private var afterDeletionContactList = mutableListOf<ApiContact>()
 
     private fun onContactClicked(id: Int) {
         findNavController()
@@ -39,8 +41,7 @@ open class ContactsListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        binding?.rvContactList?.layoutManager = LinearLayoutManager(context)
-//        binding?.rvContactList?.adapter = contactAdapter
+        Log.v("Sabit","onCreate start")
         getAllContactListForFirstTime()
     }
 
@@ -52,10 +53,14 @@ open class ContactsListFragment : Fragment() {
         // Creates a vertical Layout Manager
         return FragmentContactsListBinding.inflate(layoutInflater, container, false)
             .apply {
+                Log.v("Sabit","onCreateView start")
+                contactsListViewModel.deleteAllContactList()
                 rvContactList.layoutManager = LinearLayoutManager(context)
                 rvContactList.adapter = contactAdapter
-                getAllContactListFromDB()
+                contactAdapter.differ.submitList(GlobalFactory.apiContactSingletonList)
+                contactAdapter.notifyDataSetChanged()
                 swipeToDelete(rvContactList)
+                swipeRefreshList(swipeRefresh)
             }
             .also {
                 binding = it
@@ -78,21 +83,20 @@ open class ContactsListFragment : Fragment() {
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-                    val deletedContact: DbContact =
-                        contactsListViewModel.getAllContactListFromDB()[viewHolder.absoluteAdapterPosition]
+                    val deletedContact: ApiContact =
+                        GlobalFactory.apiContactSingletonList[viewHolder.absoluteAdapterPosition]
 
                     val position = viewHolder.absoluteAdapterPosition
 
-                    contactsListViewModel.deleteContactById(position)
+                    GlobalFactory.apiContactSingletonList.removeAt(position)
+                    rvContactList.adapter?.notifyItemRemoved(position)
 
                     Snackbar.make(
                         requireView(),
-                        "Deleted " + deletedContact.firstName,
+                        "Deleted " + deletedContact.name?.firstName,
                         Snackbar.LENGTH_LONG
                     ).show()
 
-//                    contactAdapter.differ.submitList(contactsListViewModel.getAllContactListFromDB())
-                    contactAdapter.notifyItemChanged(position)
                 }
 
             }
@@ -101,25 +105,21 @@ open class ContactsListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(rvContactList)
     }
 
-//    private fun swipeRefreshList(){
-//        binding?.swipeRefresh?.setOnRefreshListener {
-//            contactAdapter.differ.submitList(GlobalFactory.apiContactSingletonList)
-//            binding?.swipeRefresh!!.isRefreshing = false
-//        }
-//    }
-
-    private fun getAllContactListForFirstTime() {
-        contactsListViewModel.contactList.observe(requireActivity()) { appContactList ->
-            contactAdapter.differ.submitList(appContactList.map { it.toDbContact() })
-            contactAdapter.notifyDataSetChanged()
-            insertContactListToDb(appContactList)
+    private fun swipeRefreshList(swipeRefreshLayout: SwipeRefreshLayout){
+        swipeRefreshLayout.setOnRefreshListener {
+            contactAdapter.differ.submitList(GlobalFactory.apiContactSingletonList)
+            GlobalFactory.apiContactSingletonList.shuffle(Random(System.currentTimeMillis()))
+            binding?.swipeRefresh!!.isRefreshing = false
         }
     }
 
-    private fun getAllContactListFromDB() {
-        val dbContactList = contactsListViewModel.getAllContactListFromDB()
-        contactAdapter.differ.submitList(dbContactList)
-        contactAdapter.notifyDataSetChanged()
+    private fun getAllContactListForFirstTime() {
+        contactsListViewModel.contactList.observe(requireActivity()) { appContactList ->
+            GlobalFactory.apiContactSingletonList.addAll(appContactList)
+            contactAdapter.differ.submitList(appContactList)
+            contactAdapter.notifyDataSetChanged()
+            insertContactListToDb(appContactList)
+        }
     }
 
     private fun insertContactListToDb(appContactList: List<ApiContact>) {
@@ -137,9 +137,9 @@ open class ContactsListFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        Log.v("Sabit","onDestroyView start")
         super.onDestroyView()
         binding = null
-        GlobalFactory.apiContactSingletonList.clear()
-        contactsListViewModel.deleteAllContactList()
     }
+
 }

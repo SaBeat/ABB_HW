@@ -39,7 +39,7 @@ class ContactsListViewModel(
         }
     }
 
-    fun getAllContactListFromDB():List<DbContact> {
+    fun getAllContactListFromDB():MutableList<DbContact> {
         return GlobalFactory.db.userDao().getContacts()
     }
 
@@ -47,7 +47,7 @@ class ContactsListViewModel(
        return  GlobalFactory.db.userDao().getContactById(contactId)
     }
 
-    fun insertContactList(dbContactList: List<DbContact>) = viewModelScope.launch {
+    fun insertContactList(dbContactList: MutableList<DbContact>) = viewModelScope.launch {
         repository.insertContactList(dbContactList)
     }
 

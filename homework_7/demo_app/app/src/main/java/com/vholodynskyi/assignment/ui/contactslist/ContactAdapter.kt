@@ -17,12 +17,12 @@ class ContactAdapter (
     private val onItemClicked: ItemClick
 ) : RecyclerView.Adapter<ViewHolder>() {
 
-    val diffUtil = object : DiffUtil.ItemCallback<DbContact>() {
-        override fun areItemsTheSame(oldItem: DbContact, newItem: DbContact): Boolean {
-            return oldItem.id == newItem.id
+    val diffUtil = object : DiffUtil.ItemCallback<ApiContact>() {
+        override fun areItemsTheSame(oldItem: ApiContact, newItem: ApiContact): Boolean {
+            return oldItem.picture == newItem.picture
         }
 
-        override fun areContentsTheSame(oldItem: DbContact, newItem: DbContact): Boolean {
+        override fun areContentsTheSame(oldItem: ApiContact, newItem: ApiContact): Boolean {
             return oldItem == newItem
         }
     }
@@ -38,15 +38,15 @@ class ContactAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         with(holder.binding) {
-            if(item.firstName !=null && item.email !=null) {
-                txtFullName.text = "${item.firstName} ${item.lastName}"
+            if(item.name?.firstName !=null && item.email !=null) {
+                txtFullName.text = "${item.name.firstName} ${item.name.lastName}"
                 txtEmail.text = item.email
             }
             root.setOnClickListener {
                 onItemClicked(holder.absoluteAdapterPosition)
             }
-            if(item.photo != null) {
-                Glide.with(context).load(item.photo)
+            if(item.picture != null) {
+                Glide.with(context).load(item.picture.thumbnail)
                     .centerCrop()
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(contactImage)

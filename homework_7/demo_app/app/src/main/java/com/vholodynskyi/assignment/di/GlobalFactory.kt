@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import androidx.room.migration.Migration
 import com.vholodynskyi.assignment.api.RetrofitServicesProvider
 import com.vholodynskyi.assignment.api.contacts.ApiContact
 import com.vholodynskyi.assignment.api.contacts.ContactsService

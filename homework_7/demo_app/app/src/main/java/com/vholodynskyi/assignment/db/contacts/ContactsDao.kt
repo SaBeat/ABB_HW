@@ -6,13 +6,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ContactsDao {
     @Query("SELECT * FROM Contact")
-    fun getContacts(): List<DbContact>
+    fun getContacts(): MutableList<DbContact>
 
     @Update
     suspend fun update(contact: DbContact)
 
     @Insert
-    suspend fun addAll(contact: List<DbContact>)
+    suspend fun addAll(contact: MutableList<DbContact>)
 
     @Insert
     suspend fun addContact(contact: DbContact)
