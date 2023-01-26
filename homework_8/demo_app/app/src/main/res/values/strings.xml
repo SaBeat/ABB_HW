@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Advanced Android training</string>
+    <string name="sabit_sadigli">Sabit Sadigli</string>
+    <string name="sabit_mail">sabitsadiqli@gmail.com</string>
+    <string name="alert_title_delete">Are you sure to delete contact?</string>
+</resources>
