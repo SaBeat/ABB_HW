@@ -10,15 +10,15 @@ import java.io.IOException
 class GetContactListUseCase(
     private val repository: ContactRepository
 ) {
-    operator fun invoke() = flow<Resource<List<ApiContact>>> {
+    operator fun invoke() = flow {
         try {
-            emit(Resource.Loading<List<ApiContact>>())
-            val result = repository.getContactList().map { it }
+            emit(Resource.Loading())
+            val result = repository.getContactList()
             emit(Resource.Success(result))
         } catch (e: HttpException) {
-            emit(Resource.Error(e.localizedMessage))
+            emit(e.localizedMessage?.let { Resource.Error(it) })
         } catch (e: IOException) {
-            emit(Resource.Error(e.localizedMessage))
+            emit(e.localizedMessage?.let { Resource.Error(it) })
         }
     }
 }

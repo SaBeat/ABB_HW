@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.vholodynskyi.assignment.common.Constants.DB_NAME
 import com.vholodynskyi.assignment.data.api.RetrofitServicesProvider
 import com.vholodynskyi.assignment.data.api.contacts.ApiContact
 import com.vholodynskyi.assignment.data.api.contacts.ContactsService
@@ -23,19 +24,17 @@ object GlobalFactory : ViewModelProvider.Factory {
         RetrofitServicesProvider().contactsService
     }
 
-    fun getRepo():ContactRepository{
+    fun provideRepository():ContactRepository{
         return ContactRepositoryImpl(service,db.userDao())
     }
 
     lateinit var db: AppDatabase
 
-
-
     fun init(context: Context) {
         db = Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "app-database"
+            DB_NAME
         ).allowMainThreadQueries().build()
     }
 
@@ -44,9 +43,9 @@ object GlobalFactory : ViewModelProvider.Factory {
     ): T {
         return when (modelClass) {
             ContactsListViewModel::class.java -> ContactsListViewModel(
-                GetContactListUseCase(getRepo()),
-                InsertAllContactListUseCase(getRepo()),
-                DeleteAllContactListUseCase(getRepo())
+                GetContactListUseCase(provideRepository()),
+                InsertAllContactListUseCase(provideRepository()),
+                DeleteAllContactListUseCase(provideRepository())
             )
             DetailsViewModel::class.java -> DetailsViewModel()
             else -> throw IllegalArgumentException("Cannot create factory for ${modelClass.simpleName}")

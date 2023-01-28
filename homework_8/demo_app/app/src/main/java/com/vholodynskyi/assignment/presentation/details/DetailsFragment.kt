@@ -2,6 +2,7 @@ package com.vholodynskyi.assignment.presentation.details
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -51,8 +52,7 @@ open class DetailsFragment : Fragment() {
         builder.setTitle(getString(R.string.alert_title_delete))
         builder.setPositiveButton(android.R.string.yes) { dialog, which ->
             GlobalFactory.apiContactSingletonList.removeAt(contactId)
-            findNavController()
-                .navigateUp()
+            findNavController().navigateUp()
         }
 
         builder.setNegativeButton(android.R.string.no) { dialog, which ->
