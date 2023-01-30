@@ -6,15 +6,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.randomuser.presentation.Screen
 import com.example.randomuser.presentation.contactlist.components.ContactListItem
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ContactListScreen(
     navController: NavController,
-    viewModel: ContactsListViewModel = hiltViewModel()
+    viewModel:ContactsListViewModel = koinViewModel()
 ){
     val state = viewModel.contactList.value
     Box(modifier = Modifier.fillMaxSize()){
@@ -24,7 +24,7 @@ fun ContactListScreen(
                 ContactListItem(
                     apiContact = apiContact,
                     onItemClick = {
-                        navController.navigate(Screen.ContactListScreen.route + "/${index}")
+                        navController.navigate(Screen.ContactDetailScreen.route + "/${index}")
                     }
                 )
             }

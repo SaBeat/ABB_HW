@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.AbsListView.OnScrollListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -62,6 +63,7 @@ open class ContactsListFragment : Fragment() {
                 contactAdapter.notifyDataSetChanged()
                 swipeToDelete(rvContactList)
                 swipeRefreshList(swipeRefresh)
+                (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
             }
             .also {
                 binding = it

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +32,8 @@ open class DetailsFragment : Fragment() {
             .also {
                 binding = it
                 getList(args.id)
-                setHasOptionsMenu(true);
+                setHasOptionsMenu(true)
+                (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
             .root
     }
@@ -69,6 +71,9 @@ open class DetailsFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
+            android.R.id.home -> {
+                findNavController().navigateUp()
+            }
             R.id.delete_contact -> {
                 deleteDetailList(args.id)
             }

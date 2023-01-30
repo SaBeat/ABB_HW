@@ -41,7 +41,10 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.ContactDetailScreen.route + "/{contactId}"
                         ) {
-                            ContactDetailScreen()
+                            val id = it.arguments?.getInt("contactId")
+                            if (id != null) {
+                                ContactDetailScreen(id)
+                            }
                         }
                     }
                 }

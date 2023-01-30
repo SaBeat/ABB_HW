@@ -15,6 +15,7 @@ import com.example.randomuser.domain.usecase.InsertAllContactListUseCase
 import com.example.randomuser.domain.usecase.UseCases
 import com.example.randomuser.presentation.contactlist.ContactsListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
