@@ -100,8 +100,6 @@ open class ContactsListFragment : Fragment() {
                 ) {
 
                     if (recyclerView.itemAnimator!!.isRunning) {
-                        // find first child with translationY > 0
-                        // draw from it's top to translationY whatever you want
 
                         var top = 0;
                         var bottom = 0;
@@ -138,6 +136,7 @@ open class ContactsListFragment : Fragment() {
 
                     apiContactSingletonList.removeAt(position)
                     rvContactList.adapter?.notifyItemRemoved(position)
+                    contactAdapter.differ.submitList(apiContactSingletonList)
 
                     Snackbar.make(
                         requireView(),

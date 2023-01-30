@@ -43,12 +43,6 @@ val viewModelModule = module {
     }
 }
 
-val repositoryModule = module {
-
-    single {
-    }
-}
-
 val dbModule = module {
     fun provideDatabase(context: Context): AppDatabase =
         Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, DB_NAME)

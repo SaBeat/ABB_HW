@@ -3,7 +3,6 @@ package com.vholodynskyi.assignment
 import android.app.Application
 import com.vholodynskyi.assignment.di.dbModule
 import com.vholodynskyi.assignment.di.networkModule
-import com.vholodynskyi.assignment.di.repositoryModule
 import com.vholodynskyi.assignment.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +16,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(repositoryModule, dbModule, networkModule, viewModelModule))
+            modules(listOf(dbModule, networkModule, viewModelModule))
         }
     }
 }

@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
+import android.widget.AbsListView.OnScrollListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -81,7 +83,6 @@ open class ContactsListFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-
                     val deletedContact: ApiContact =
                         GlobalFactory.apiContactSingletonList[viewHolder.absoluteAdapterPosition]
 
@@ -89,6 +90,7 @@ open class ContactsListFragment : Fragment() {
 
                     GlobalFactory.apiContactSingletonList.removeAt(position)
                     rvContactList.adapter?.notifyItemRemoved(position)
+                    contactAdapter.differ.submitList(GlobalFactory.apiContactSingletonList)
 
                     Snackbar.make(
                         requireView(),

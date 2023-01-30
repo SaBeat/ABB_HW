@@ -1,33 +1,34 @@
 package com.vholodynskyi.assignment.data.api.contacts
 
+import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.vholodynskyi.assignment.data.db.contacts.DbContact
 
-@JsonClass(generateAdapter = true)
 data class ApiContact(
+    @SerializedName("name")
     val name: Name?,
+    @SerializedName("email")
     val email: String?,
+    @SerializedName("picture")
     val picture: Picture?
 )
 
-@JsonClass(generateAdapter = true)
 data class Name(
-    @Json(name = "first")
+    @SerializedName("first")
     val firstName: String?,
-    @Json(name = "last")
+    @SerializedName("last")
     val lastName: String?,
     val picture: Picture?
 )
 
-@JsonClass(generateAdapter = true)
 data class Picture(
     val large: String?,
     val medium: String?,
     val thumbnail: String?
 )
 
-fun ApiContact.toDbContact():DbContact{
+fun ApiContact.toDbContact(): DbContact {
     return DbContact(
         firstName = name?.firstName,
         lastName = name?.lastName,

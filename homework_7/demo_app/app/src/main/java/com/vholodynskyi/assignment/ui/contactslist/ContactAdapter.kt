@@ -12,7 +12,7 @@ import com.vholodynskyi.assignment.api.contacts.ApiContact
 import com.vholodynskyi.assignment.databinding.ItemContactListBinding
 import com.vholodynskyi.assignment.db.contacts.DbContact
 
-class ContactAdapter (
+class ContactAdapter(
     private val context: Activity,
     private val onItemClicked: ItemClick
 ) : RecyclerView.Adapter<ViewHolder>() {
@@ -38,14 +38,14 @@ class ContactAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = differ.currentList[position]
         with(holder.binding) {
-            if(item.name?.firstName !=null && item.email !=null) {
+            if (item.name?.firstName != null && item.email != null) {
                 txtFullName.text = "${item.name.firstName} ${item.name.lastName}"
                 txtEmail.text = item.email
             }
             root.setOnClickListener {
                 onItemClicked(holder.absoluteAdapterPosition)
             }
-            if(item.picture != null) {
+            if (item.picture != null) {
                 Glide.with(context).load(item.picture.thumbnail)
                     .centerCrop()
                     .placeholder(R.drawable.ic_launcher_background)
@@ -59,6 +59,6 @@ class ContactAdapter (
     }
 }
 
-class ViewHolder (val binding: ItemContactListBinding) : RecyclerView.ViewHolder(binding.root)
+class ViewHolder(val binding: ItemContactListBinding) : RecyclerView.ViewHolder(binding.root)
 
 typealias ItemClick = (Int) -> Unit

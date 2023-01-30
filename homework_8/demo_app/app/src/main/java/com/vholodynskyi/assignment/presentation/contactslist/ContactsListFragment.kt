@@ -102,6 +102,7 @@ open class ContactsListFragment : Fragment() {
 
                     GlobalFactory.apiContactSingletonList.removeAt(position)
                     rvContactList.adapter?.notifyItemRemoved(position)
+                    contactAdapter.differ.submitList(GlobalFactory.apiContactSingletonList)
 
                     Snackbar.make(
                         requireView(),
