@@ -10,9 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.randomuser.presentation.Screen
 import com.example.randomuser.presentation.contactdetail.ContactDetailScreen
 import com.example.randomuser.presentation.contactlist.ContactListScreen
@@ -39,12 +41,16 @@ class MainActivity : ComponentActivity() {
                             ContactListScreen(navController)
                         }
                         composable(
-                            route = Screen.ContactDetailScreen.route + "/{contactId}"
-                        ) {
-                            val id = it.arguments?.getInt("contactId")
-                            if (id != null) {
-                                ContactDetailScreen(id)
-                            }
+                            route = Screen.ContactDetailScreen.route + "/{contactId}",
+                            arguments = listOf(
+                                navArgument("contactId") {
+                                    type = NavType.IntType
+                                    defaultValue = 0
+                                }
+                            )
+                        ) {backStackEntry ->
+                            val id = requireNotNull(backStackEntry.arguments?.getInt("contactId"))
+                            ContactDetailScreen(id)
                         }
                     }
                 }
