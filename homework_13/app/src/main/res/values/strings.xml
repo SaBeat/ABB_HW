@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Navigation-Jetpact</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="go_to_detail_fragment">Go to Detail Fragment</string>
+    <string name="go_to_global_fragment">Go to Global Fragment</string>
+    <string name="detail_fragment">Detail Fragment</string>
+    <string name="go_to_edit_fragment">Go to Edit Fragment</string>
+    <string name="global_fragment">Global Fragment</string>
+    <string name="edit_fragment">Edit Fragment</string>
+</resources>

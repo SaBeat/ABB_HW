@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <action
+        android:id="@+id/go_to_global_fragment"
+        app:destination="@id/globalFragment"
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right"/>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.navigation_jetpact.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_secondFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.navigation_jetpact.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_secondFragment_to_thirdFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"/>
+        <argument
+            android:name="detail_args"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.navigation_jetpact.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
+        <argument android:name="edit_args"
+            app:argType="string"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"/>
+    </fragment>
+    <argument
+        android:name="string"
+        app:argType="string"
+        app:nullable="true" />
+    <fragment
+        android:id="@+id/globalFragment"
+        android:name="com.example.navigation_jetpact.GlobalFragment"
+        android:label="fragment_global"
+        tools:layout="@layout/fragment_global" >
+        <argument
+            android:name="global_args"
+            app:argType="string"/>
+    </fragment>
+
+</navigation>

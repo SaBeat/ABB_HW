@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_edit"
+        app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_new_24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="@color/black">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_fragment"
+            android:textColor="@color/white"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_gravity="center" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_show_message"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_go_global"
+        android:layout_below="@id/tv_show_message"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:text="@string/go_to_global_fragment"/>
+
+
+
+</RelativeLayout>
